@@ -1,0 +1,5 @@
+@HostAddress = http://localhost:5103
+
+### Login (hard-coded: always authenticates as admin@test.com)
+# @name login
+POST {{HostAddress}}/login

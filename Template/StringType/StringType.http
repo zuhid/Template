@@ -1,0 +1,40 @@
+@HostAddress = http://localhost:5103
+@Token = {{login.response.body.$.token}}
+@Id = 3fa85f64-5717-4562-b3fc-2c963f66afa6
+
+### Login (run first; the requests below reuse its token)
+# @name login
+POST {{HostAddress}}/login
+
+### Add
+POST {{HostAddress}}/stringtype
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+  "id": "{{Id}}",
+  "charType": "char",
+  "varcharType": "varchar",
+  "textType": "text"
+}
+
+### Get by id
+GET {{HostAddress}}/stringtype/{{Id}}
+Authorization: Bearer {{Token}}
+Accept: application/json
+
+### Update
+PUT {{HostAddress}}/stringtype
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+  "id": "{{Id}}",
+  "charType": "char-upd",
+  "varcharType": "varchar updated",
+  "textType": "text updated"
+}
+
+### Delete
+DELETE {{HostAddress}}/stringtype/{{Id}}
+Authorization: Bearer {{Token}}

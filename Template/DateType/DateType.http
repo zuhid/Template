@@ -1,0 +1,49 @@
+@HostAddress = http://localhost:5103
+@Token = {{login.response.body.$.token}}
+@Id = 3fa85f64-5717-4562-b3fc-2c963f66afa6
+
+### Login (run first; the requests below reuse its token)
+# @name login
+POST {{HostAddress}}/login
+
+### Add
+POST {{HostAddress}}/datetype
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+  "id": "{{Id}}",
+  "dateTimeWithoutTzType": "2026-01-31T13:45:00",
+  "dateTimeType": "2026-01-31T13:45:00Z",
+  "timeSpanType": "01:02:03",
+  "dateOnlyType": "2026-01-31",
+  "timeOnlyType": "13:45:00"
+}
+
+### Get all
+GET {{HostAddress}}/datetype
+Authorization: Bearer {{Token}}
+Accept: application/json
+
+### Get by id
+GET {{HostAddress}}/datetype/{{Id}}
+Authorization: Bearer {{Token}}
+Accept: application/json
+
+### Update
+PUT {{HostAddress}}/datetype
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+  "id": "{{Id}}",
+  "dateTimeWithoutTzType": "2026-02-28T08:30:00",
+  "dateTimeType": "2026-02-28T08:30:00Z",
+  "timeSpanType": "04:05:06",
+  "dateOnlyType": "2026-02-28",
+  "timeOnlyType": "08:30:00"
+}
+
+### Delete
+DELETE {{HostAddress}}/datetype/{{Id}}
+Authorization: Bearer {{Token}}
